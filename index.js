@@ -6,6 +6,10 @@ class Heroi {
 		this.ataque = "";
 	}
 
+	getNome() {
+		return this.nome;
+	}
+
 	atacar() {
 		if (this.tipo === "Mago") {
 			this.ataque = "Magia";
@@ -13,8 +17,10 @@ class Heroi {
 			this.ataque = "Espada";
 		} else if (this.tipo === "Monge") {
 			this.ataque = "Artes Marciais";
-		} else {
+		} else if (this.tipo === "Ninja") {
 			this.ataque = "Shuriken";
+		} else {
+			this.ataque = "Arco e flecha";
 		}
 	}
 
@@ -30,6 +36,52 @@ class Heroi {
 	}
 }
 
-let personagem = new Heroi("Kelvin", 22, "Ninja");
-personagem.atacar();
-personagem.mensagem();
+let party = {
+	1: new Heroi("Kelvin", 22, "Ninja"),
+	2: new Heroi("Nicolas", 20, "Guerreiro"),
+	3: new Heroi("Gabriel", 21, "Monge"),
+	4: new Heroi("Heloysa", 22, "Mago"),
+	5: new Heroi("Rayanne", 20, "Atirador"),
+};
+
+const readline = require("readline").createInterface({
+	input: process.stdin,
+	output: process.stdout,
+});
+
+function turnoJogador(index) {
+	if (!party[index]) {
+		readline.close();
+		return;
+	}
+
+	console.log(`Deseja que ${party[index].getNome()} ataque?\n1 - SIM\n2 - NÃO`);
+
+	readline.question("Escolha: ", (opcao) => {
+		opcao = Number(opcao);
+
+		switch (opcao) {
+			case 1:
+				console.log(`A opção escolhida foi continuar o turno`);
+				console.log("------------------------------------------------");
+				party[index].atacar();
+				party[index].mensagem();
+				console.log("------------------------------------------------");
+				console.log(`O próximo turno é ${party[index + 1].getNome()}`);
+				console.log("------------------------------------------------");
+				break;
+			case 2:
+				console.log(`A opção escolhida foi pular o turno para ${party[index + 1].getNome()}`);
+				console.log("------------------------------------------------");
+				break;
+			default:
+				console.log("Opção inválida. Turno ignorado.");
+				console.log("------------------------------------------------");
+				break;
+		}
+
+		turnoJogador(index + 1); // Passa para o próximo herói
+	});
+}
+
+turnoJogador(1); // Inicia do os turnos
