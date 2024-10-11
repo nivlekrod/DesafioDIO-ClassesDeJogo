@@ -33,6 +33,7 @@ Além disso, a classe deve ter um método chamado **atacar**, que atenda aos seg
 | **Guerreiro** | Usou espada          |
 | **Monge** | Usou artes marciais      |
 | **Ninja** | Usou shuriken            |
+| **Atirador** | Usou arco e flecha    |
 
 ## Exemplo de Saída
 
@@ -43,6 +44,10 @@ Exemplo:
 - O **mago** atacou usando **magia**  
 - O **guerreiro** atacou usando **espada**
 
-### Implementação Extra
+## Implementação Extra
 
+### Lógica de Chance de Sucesso
 Foi implementada uma lógica de sucesso aleatório ao ataque do Herói, utilizando o método `Math.random()`. Essa lógica gera um número aleatório para determinar se o ataque foi bem-sucedido ou não, com 70% de chance de sucesso.
+
+### Implementação da Função de Turno
+A implementação da função de turno será responsável por permitir que cada herói da party ataque em sequência, oferecendo ao jogador a opção de decidir se o herói deve atacar ou pular o turno.
